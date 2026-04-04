@@ -170,7 +170,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
       {/* Mobile sidebar */}
       <aside
         className={clsx(
-          'fixed left-0 top-0 h-full w-64 z-50 glass border-r border-white/5 flex flex-col transition-transform duration-300 md:hidden',
+          'fixed left-0 top-0 h-full w-60 z-50 glass border-r border-white/5 flex flex-col transition-transform duration-300 md:hidden',
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
