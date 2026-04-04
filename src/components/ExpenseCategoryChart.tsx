@@ -31,7 +31,7 @@ export default function ExpenseCategoryChart() {
       <div className="flex items-center justify-between mb-5">
         <div>
           <h3 className="text-sm font-semibold text-white">Expense Categories</h3>
-          <p className="text-xs text-slate-500 mt-0.5">Q1 2026 breakdown</p>
+          <p className="text-xs text-slate-500 mt-0.5">Q1–Q2 2026 breakdown</p>
         </div>
         <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20">
           <PieIcon className="w-4 h-4 text-purple-400" />
@@ -81,9 +81,8 @@ export default function ExpenseCategoryChart() {
           {expenseCategoryData.map((d, i) => (
             <div
               key={d.name}
-              className={`flex items-center justify-between text-xs py-1 px-2 rounded-lg transition-all cursor-default ${
-                activeIndex === i ? 'bg-white/5' : ''
-              }`}
+              className={`flex items-center justify-between text-xs py-1 px-2 rounded-lg transition-all cursor-default ${activeIndex === i ? 'bg-white/5' : ''
+                }`}
               onMouseEnter={() => setActiveIndex(i)}
               onMouseLeave={() => setActiveIndex(null)}
             >
