@@ -26,7 +26,7 @@ export default function Header({ onMenuClick }: HeaderProps) {
             Finance Dashboard
           </h2>
           <p className="text-xs dark:text-slate-500 text-slate-400 hidden sm:block">
-            April 2026 · Fiscal Year Q2
+            Apr 2026 &middot; Q2 Fiscal Year
           </p>
         </div>
       </div>
@@ -35,11 +35,10 @@ export default function Header({ onMenuClick }: HeaderProps) {
       <div className="flex items-center gap-2">
         {/* Role pill */}
         <span
-          className={`hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full ${
-            isAdmin
+          className={`hidden sm:inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full ${isAdmin
               ? 'bg-indigo-500/10 text-indigo-400 border border-indigo-500/20'
               : 'bg-slate-500/10 text-slate-400 border border-slate-500/20'
-          }`}
+            }`}
         >
           <span className={`w-1.5 h-1.5 rounded-full ${isAdmin ? 'bg-indigo-400' : 'bg-slate-400'} animate-pulse`} />
           {isAdmin ? 'Admin' : 'View Only'}
