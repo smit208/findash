@@ -23,7 +23,7 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <SummaryCard
               title="Total Balance"
-              value={`$${summaryStats.totalBalance.toLocaleString()}`}
+              value={`₹${summaryStats.totalBalance.toLocaleString('en-IN')}`}
               trend={summaryStats.totalBalanceTrend}
               trendLabel="vs last month"
               icon={<Wallet className="w-5 h-5 text-indigo-400" />}
@@ -32,7 +32,7 @@ export default function DashboardPage() {
             />
             <SummaryCard
               title="Monthly Income"
-              value={`$${summaryStats.monthlyIncome.toLocaleString()}`}
+              value={`₹${summaryStats.monthlyIncome.toLocaleString('en-IN')}`}
               trend={summaryStats.monthlyIncomeTrend}
               trendLabel="vs March 2026"
               icon={<TrendingUp className="w-5 h-5 text-emerald-400" />}
@@ -41,7 +41,7 @@ export default function DashboardPage() {
             />
             <SummaryCard
               title="Monthly Expenses"
-              value={`$${summaryStats.monthlyExpenses.toLocaleString()}`}
+              value={`₹${summaryStats.monthlyExpenses.toLocaleString('en-IN')}`}
               trend={summaryStats.monthlyExpensesTrend}
               trendLabel="vs March 2026"
               icon={<TrendingDown className="w-5 h-5 text-red-400" />}

@@ -109,7 +109,7 @@ export default function TransactionTable() {
         {/* Table header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-5 border-b border-white/5">
           <div>
-            <h3 className="text-sm font-semibold text-white">Transaction History</h3>
+            <h3 className="text-sm font-semibold dark:text-white text-slate-900">Transaction History</h3>
             <p className="text-xs text-slate-500 mt-0.5">{filtered.length} records</p>
           </div>
           <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
@@ -228,7 +228,7 @@ export default function TransactionTable() {
                       <div className="text-[10px] text-slate-600">{tx.id}</div>
                     </td>
                     <td className="px-5 py-3.5">
-                      <div className="text-sm text-white font-medium">{tx.entity}</div>
+                      <div className="text-sm dark:text-white text-slate-900 font-medium">{tx.entity}</div>
                       <div className="text-xs text-slate-500 truncate max-w-[160px]">
                         {tx.description}
                       </div>
@@ -245,8 +245,8 @@ export default function TransactionTable() {
                           tx.amount >= 0 ? 'text-emerald-400' : 'text-red-400'
                         )}
                       >
-                        {tx.amount >= 0 ? '+' : ''}$
-                        {Math.abs(tx.amount).toLocaleString()}
+                        {tx.amount >= 0 ? '+' : ''}₹
+                        {Math.abs(tx.amount).toLocaleString('en-IN')}
                       </span>
                     </td>
                     <td className="px-5 py-3.5">

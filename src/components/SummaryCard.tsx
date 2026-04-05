@@ -26,7 +26,7 @@ export default function SummaryCard({
   return (
     <div
       className={clsx(
-        'glass rounded-2xl p-5 hover:bg-white/[0.07] transition-all duration-300 cursor-default group animate-fade-up opacity-0',
+        'glass rounded-2xl p-5 hover:bg-white/[0.07] dark:hover:bg-white/[0.07] hover:bg-slate-50 transition-all duration-300 cursor-default group animate-fade-up opacity-0',
         delay
       )}
     >
@@ -47,7 +47,7 @@ export default function SummaryCard({
 
       <div>
         <p className="text-xs text-slate-500 uppercase tracking-widest font-medium mb-1">{title}</p>
-        <p className="text-2xl font-bold text-white tracking-tight">{value}</p>
+        <p className="text-2xl font-bold dark:text-white text-slate-900 tracking-tight">{value}</p>
         <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
           <ArrowUpRight className="w-3 h-3" />
           {trendLabel}

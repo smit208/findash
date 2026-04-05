@@ -15,7 +15,7 @@ const CustomTooltip = ({ active, payload }: any) => {
     return (
       <div className="glass rounded-xl px-4 py-3 shadow-xl border border-white/10">
         <p className="text-xs text-slate-400 mb-1">{data.name}</p>
-        <p className="text-sm font-bold text-white">${(data.value as number).toLocaleString()}</p>
+        <p className="text-sm font-bold dark:text-white text-slate-900">₹{(data.value as number).toLocaleString('en-IN')}</p>
       </div>
     );
   }
@@ -30,7 +30,7 @@ export default function ExpenseCategoryChart() {
     <div className="glass rounded-2xl p-5 animate-fade-up opacity-0 animate-stagger-3">
       <div className="flex items-center justify-between mb-5">
         <div>
-          <h3 className="text-sm font-semibold text-white">Expense Categories</h3>
+          <h3 className="text-sm font-semibold dark:text-white text-slate-900">Expense Categories</h3>
           <p className="text-xs text-slate-500 mt-0.5">Q1–Q2 2026 breakdown</p>
         </div>
         <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20">
@@ -72,7 +72,7 @@ export default function ExpenseCategoryChart() {
           {/* Center text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
             <p className="text-xs text-slate-500">Total</p>
-            <p className="text-sm font-bold text-white">${(total / 1000).toFixed(0)}k</p>
+            <p className="text-sm font-bold dark:text-white text-slate-900">₹{(total / 100000).toFixed(0)}L</p>
           </div>
         </div>
 
@@ -93,7 +93,7 @@ export default function ExpenseCategoryChart() {
                 />
                 <span className="text-slate-400 truncate">{d.name}</span>
               </div>
-              <span className="text-white font-medium ml-2">
+              <span className="dark:text-white text-slate-900 font-medium ml-2">
                 {((d.value / total) * 100).toFixed(0)}%
               </span>
             </div>
