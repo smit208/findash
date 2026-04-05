@@ -6,29 +6,29 @@ import type { UserRole } from '../context/AuthContext';
 
 export default function LoginPage() {
   const { login } = useAuth();
-  const navigate = useNavigate();
+  const nav = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState<UserRole>('admin');
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [err, setErr] = useState('');
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
+    setErr('');
     if (!email || !password) {
-      setError('Please fill in all fields.');
+      setErr('Please fill in all fields.');
       return;
     }
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 800)); // simulate network
+    await new Promise((r) => setTimeout(r, 800));
     login(email, password, role);
-    navigate('/dashboard');
+    nav('/dashboard');
     setLoading(false);
   };
 
-  const quickFill = (preset: 'admin' | 'viewer') => {
+  const fillDemo = (preset: 'admin' | 'viewer') => {
     if (preset === 'admin') {
       setEmail('admin@zorvyn.io');
       setPassword('admin123');
@@ -42,13 +42,11 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[#080b14] flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Background orbs */}
       <div className="absolute top-[-10%] left-[-10%] w-96 h-96 rounded-full bg-indigo-600/20 blur-[120px] pointer-events-none" />
       <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 rounded-full bg-purple-600/20 blur-[120px] pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full bg-pink-500/10 blur-[100px] pointer-events-none" />
 
       <div className="w-full max-w-md relative z-10">
-        {/* Logo */}
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 mb-4 shadow-lg shadow-indigo-500/30">
             <TrendingUp className="w-8 h-8 text-white" />
@@ -59,31 +57,28 @@ export default function LoginPage() {
           <p className="text-slate-400 mt-1 text-sm">Finance Intelligence Platform</p>
         </div>
 
-        {/* Card */}
         <div className="glass rounded-2xl p-8 shadow-2xl">
           <h2 className="text-xl font-semibold text-white mb-1">Welcome back</h2>
           <p className="text-slate-400 text-sm mb-6">Sign in to your dashboard</p>
 
-          {/* Quick-fill presets */}
           <div className="flex gap-2 mb-6">
             <button
               type="button"
-              onClick={() => quickFill('admin')}
+              onClick={() => fillDemo('admin')}
               className="flex-1 text-xs px-3 py-2 rounded-lg border border-indigo-500/40 bg-indigo-500/10 text-indigo-300 hover:bg-indigo-500/20 transition-colors font-medium"
             >
               🛡 Admin Demo
             </button>
             <button
               type="button"
-              onClick={() => quickFill('viewer')}
+              onClick={() => fillDemo('viewer')}
               className="flex-1 text-xs px-3 py-2 rounded-lg border border-slate-500/40 bg-slate-500/10 text-slate-300 hover:bg-slate-500/20 transition-colors font-medium"
             >
               👁 Viewer Demo
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Email */}
+          <form onSubmit={submit} className="space-y-4">
             <div>
               <label className="block text-xs font-medium text-slate-400 mb-1.5 uppercase tracking-wide">
                 Email address
@@ -100,7 +95,6 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Password */}
             <div>
               <label className="block text-xs font-medium text-slate-400 mb-1.5 uppercase tracking-wide">
                 Password
@@ -124,20 +118,18 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {/* Role selector */}
             <div>
               <label className="block text-xs font-medium text-slate-400 mb-1.5 uppercase tracking-wide">
-                Access Level
+                Access level
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <button
                   type="button"
                   onClick={() => setRole('admin')}
-                  className={`flex items-center justify-center gap-2 py-3 rounded-xl border text-sm font-medium transition-all ${
-                    role === 'admin'
+                  className={`flex items-center justify-center gap-2 py-3 rounded-xl border text-sm font-medium transition-all ${role === 'admin'
                       ? 'border-indigo-500 bg-indigo-500/20 text-indigo-300 shadow-sm shadow-indigo-500/20'
                       : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10'
-                  }`}
+                    }`}
                 >
                   <Shield className="w-4 h-4" />
                   Admin
@@ -145,11 +137,10 @@ export default function LoginPage() {
                 <button
                   type="button"
                   onClick={() => setRole('viewer')}
-                  className={`flex items-center justify-center gap-2 py-3 rounded-xl border text-sm font-medium transition-all ${
-                    role === 'viewer'
+                  className={`flex items-center justify-center gap-2 py-3 rounded-xl border text-sm font-medium transition-all ${role === 'viewer'
                       ? 'border-purple-500 bg-purple-500/20 text-purple-300 shadow-sm shadow-purple-500/20'
                       : 'border-white/10 bg-white/5 text-slate-400 hover:bg-white/10'
-                  }`}
+                    }`}
                 >
                   <Eye className="w-4 h-4" />
                   Viewer
@@ -157,9 +148,9 @@ export default function LoginPage() {
               </div>
             </div>
 
-            {error && (
+            {err && (
               <p className="text-red-400 text-xs bg-red-500/10 border border-red-500/20 rounded-lg px-3 py-2">
-                {error}
+                {err}
               </p>
             )}
 
@@ -174,7 +165,7 @@ export default function LoginPage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                   </svg>
-                  Authenticating...
+                  Signing in...
                 </span>
               ) : (
                 'Sign In'
@@ -183,7 +174,7 @@ export default function LoginPage() {
           </form>
 
           <p className="text-center text-xs text-slate-600 mt-6">
-            Zorvyn Finance — Internship Demo v1.0
+            Zorvyn Finance — demo build
           </p>
         </div>
       </div>

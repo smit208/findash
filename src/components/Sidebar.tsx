@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
   TrendingUp,
@@ -12,34 +12,32 @@ import {
   Shield,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
 import clsx from 'clsx';
 
-const navItems = [
+const links = [
   { icon: LayoutDashboard, label: 'Dashboard', to: '/dashboard' },
   { icon: TrendingUp, label: 'Analytics', to: '/dashboard' },
   { icon: CreditCard, label: 'Transactions', to: '/dashboard' },
   { icon: Settings, label: 'Settings', to: '/dashboard' },
 ];
 
-interface SidebarProps {
+interface Props {
   mobileOpen: boolean;
   setMobileOpen: (v: boolean) => void;
 }
 
-export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
+export default function Sidebar({ mobileOpen, setMobileOpen }: Props) {
   const { user, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
 
-  const handleLogout = () => {
+  const doLogout = () => {
     logout();
     navigate('/login');
   };
 
-  const sidebarContent = (
+  const inner = (
     <div className="flex flex-col h-full">
-      {/* Logo */}
       <div
         className={clsx(
           'flex items-center gap-3 px-4 py-5 border-b border-white/5',
@@ -59,7 +57,6 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
         )}
       </div>
 
-      {/* Role badge */}
       {!collapsed && (
         <div className="mx-4 mt-4 mb-2">
           <div
@@ -85,9 +82,8 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
         </div>
       )}
 
-      {/* Nav */}
       <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
-        {navItems.map(({ icon: Icon, label, to }) => (
+        {links.map(({ icon: Icon, label, to }) => (
           <NavLink
             key={label}
             to={to}
@@ -108,7 +104,6 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
         ))}
       </nav>
 
-      {/* User profile */}
       <div className="border-t border-white/5 p-3">
         <div
           className={clsx(
@@ -127,7 +122,7 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
           )}
           {!collapsed && (
             <button
-              onClick={handleLogout}
+              onClick={doLogout}
               className="p-1.5 rounded-lg text-slate-500 hover:text-red-400 hover:bg-red-500/10 transition-colors"
               title="Logout"
             >
@@ -137,7 +132,6 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
         </div>
       </div>
 
-      {/* Collapse toggle (desktop) */}
       <button
         onClick={() => setCollapsed((v) => !v)}
         className="hidden md:flex items-center justify-center p-2 m-3 rounded-xl border border-white/5 text-slate-500 hover:text-white hover:bg-white/5 transition-all"
@@ -149,17 +143,15 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
 
   return (
     <>
-      {/* Desktop sidebar */}
       <aside
         className={clsx(
           'hidden md:flex flex-col h-screen sticky top-0 glass border-r border-white/5 transition-all duration-300 flex-shrink-0',
           collapsed ? 'w-16' : 'w-60'
         )}
       >
-        {sidebarContent}
+        {inner}
       </aside>
 
-      {/* Mobile overlay */}
       {mobileOpen && (
         <div
           className="fixed inset-0 bg-black/60 z-40 md:hidden"
@@ -167,14 +159,13 @@ export default function Sidebar({ mobileOpen, setMobileOpen }: SidebarProps) {
         />
       )}
 
-      {/* Mobile sidebar */}
       <aside
         className={clsx(
           'fixed left-0 top-0 h-full w-60 z-50 glass border-r border-white/5 flex flex-col transition-transform duration-300 md:hidden',
           mobileOpen ? 'translate-x-0' : '-translate-x-full'
         )}
       >
-        {sidebarContent}
+        {inner}
       </aside>
     </>
   );

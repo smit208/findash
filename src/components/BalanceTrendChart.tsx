@@ -1,4 +1,4 @@
-
+// had to wrap in ResponsiveContainer to get mobile sizing right, fixed height works better than %
 import {
   XAxis,
   YAxis,
