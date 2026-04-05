@@ -73,15 +73,15 @@ export default function TransactionTable() {
   }, [data, search, categoryFilter, sortField, sortDir]);
 
   // TODO: add pagination when list gets long
-  const handleDelete = (id: string) => {
+  const removeRow = (id: string) => {
     setData((prev) => prev.filter((t) => t.id !== id));
   };
 
-  const handleAdd = (tx: Transaction) => {
+  const addRow = (tx: Transaction) => {
     setData((prev) => [tx, ...prev]);
   };
 
-  const handleExport = () => {
+  const exportCSV = () => {
     const header = 'ID,Date,Entity,Amount,Category,Status\n';
     const rows = data
       .map((t) => `${t.id},${t.date},${t.entity},${t.amount},${t.category},${t.status}`)
@@ -94,7 +94,6 @@ export default function TransactionTable() {
     a.click();
     URL.revokeObjectURL(url);
   };
-
   const SortIcon = ({ field }: { field: SortField }) => {
     if (sortField !== field) return <ArrowUpDown className="w-3 h-3 text-slate-600" />;
     return sortDir === 'asc' ? (
@@ -143,7 +142,6 @@ export default function TransactionTable() {
               </select>
             </div>
 
-            {/* Admin controls */}
             <button
               onClick={isAdmin ? () => setShowModal(true) : undefined}
               disabled={!isAdmin}
@@ -160,7 +158,7 @@ export default function TransactionTable() {
             </button>
 
             <button
-              onClick={isAdmin ? handleExport : undefined}
+              onClick={isAdmin ? exportCSV : undefined}
               disabled={!isAdmin}
               className={clsx(
                 'flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-all',
@@ -265,7 +263,7 @@ export default function TransactionTable() {
                     {isAdmin && (
                       <td className="px-5 py-3.5 text-right">
                         <button
-                          onClick={() => handleDelete(tx.id)}
+                          onClick={() => removeRow(tx.id)}
                           className="p-1.5 rounded-lg text-slate-600 hover:text-red-400 hover:bg-red-500/10 transition-all opacity-0 group-hover:opacity-100"
                         >
                           <Trash2 className="w-3.5 h-3.5" />
@@ -280,7 +278,7 @@ export default function TransactionTable() {
         </div>
       </div>
 
-      {showModal && <AddTransactionModal onClose={() => setShowModal(false)} onAdd={handleAdd} />}
+      {showModal && <AddTransactionModal onClose={() => setShowModal(false)} onAdd={addRow} />}
     </>
   );
 }
